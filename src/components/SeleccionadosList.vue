@@ -23,7 +23,7 @@
               min="1"
               max="10"
               style="width: 60px;"
-              @input="$emit('actualizar-cantidad', servicio.ID, parseInt($event.target.value) || 1)"
+              @input="actualizarCantidad(servicio.ID, $event.target.value)"
             />
             <button class="btn btn-danger btn-sm rounded-circle" @click="$emit('eliminar-servicio', servicio.ID)">❌</button>
           </div>
@@ -33,8 +33,15 @@
   </template>
   
   <script setup>
-  defineProps(['seleccionados']);
-  defineEmits(['actualizar-cantidad', 'eliminar-servicio']);
+  import { defineProps, defineEmits } from 'vue';
+  
+  const props = defineProps(['seleccionados']);
+  const emit = defineEmits(['actualizar-cantidad', 'eliminar-servicio']);
+  
+  const actualizarCantidad = (id, nuevaCantidad) => {
+    const cantidad = Math.min(10, Math.max(1, parseInt(nuevaCantidad) || 1)); // Limita entre 1 y 10
+    emit('actualizar-cantidad', id, cantidad);
+  };
   </script>
   
   <style scoped>

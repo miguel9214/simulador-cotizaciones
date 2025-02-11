@@ -37,21 +37,26 @@
   const maxServicios = 10;
   
   const agregarServicio = (servicio) => {
-    const existente = seleccionados.value.find(s => s.ID === servicio.ID);
-    if (existente) {
-      if (existente.cantidad < 10) {
-        existente.cantidad += 1;
-      } else {
-        Swal.fire('Límite alcanzado', 'No puedes agregar más de 10 unidades de este servicio.', 'warning');
-      }
+  if (seleccionados.value.length >= maxServicios) {
+    Swal.fire('Límite alcanzado', 'No puedes agregar más de 10 servicios en total.', 'warning');
+    return; // Detener la ejecución si ya hay 10 servicios seleccionados
+  }
+
+  const existente = seleccionados.value.find(s => s.ID === servicio.ID);
+
+  if (existente) {
+    if (existente.cantidad < 10) {
+      existente.cantidad += 1;
+      seleccionados.value = [...seleccionados.value]; // 🔄 Forzar reactividad en Vue
     } else {
-      if (seleccionados.value.length < maxServicios) {
-        seleccionados.value.push({ ...servicio, cantidad: 1 });
-      } else {
-        Swal.fire('Límite alcanzado', 'No puedes agregar más de 10 servicios.', 'warning');
-      }
+      Swal.fire('Límite alcanzado', 'No puedes agregar más de 10 unidades de este servicio.', 'warning');
     }
-  };
+  } else {
+    seleccionados.value.push({ ...servicio, cantidad: 1 });
+  }
+};
+
+
   
   const actualizarCantidad = (id, nuevaCantidad) => {
     const servicio = seleccionados.value.find(s => s.ID === id);
