@@ -1,11 +1,27 @@
 <template>
-    <div class="seleccionados-card shadow-lg p-4 rounded mb-4">
-      <h2 class="text-center text-primary">📌 Servicios Seleccionados</h2>
+    <div class="servicios-card shadow-lg p-4 rounded mb-4">
+      <h2 class="text-center text-primary">🛒 Servicios Seleccionados</h2>
       <hr />
       <ul class="list-group">
-        <li v-for="(servicio, index) in seleccionados" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
-          <span class="fw-bold">{{ servicio.SERVICIOS_COMPLETOS }} ({{ servicio.cantidad }})</span>
-          <button class="btn btn-danger btn-sm rounded-circle" @click="$emit('eliminar-servicio', index)">❌</button>
+        <li 
+          v-for="servicio in seleccionados" 
+          :key="servicio.ID" 
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <span class="fw-bold">{{ servicio.SERVICIOS_COMPLETOS }}</span>
+  
+          <div class="d-flex align-items-center">
+            <input 
+              type="number" 
+              class="form-control form-control-sm me-2" 
+              :value="servicio.cantidad"
+              min="1"
+              max="10"
+              style="width: 60px;"
+              @input="$emit('actualizar-cantidad', servicio.ID, parseInt($event.target.value) || 1)"
+            />
+            <button class="btn btn-danger btn-sm rounded-circle" @click="$emit('eliminar-servicio', servicio.ID)">❌</button>
+          </div>
         </li>
       </ul>
     </div>
@@ -13,20 +29,15 @@
   
   <script setup>
   defineProps(['seleccionados']);
-  defineEmits(['eliminar-servicio']);
+  defineEmits(['actualizar-cantidad', 'eliminar-servicio']);
   </script>
   
   <style scoped>
-  .seleccionados-card {
+  .servicios-card {
     background: white;
     border-radius: 12px;
     max-width: 500px;
     margin: auto;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .seleccionados-card:hover {
-    transform: scale(1.02);
   }
   
   .list-group-item {
@@ -35,20 +46,10 @@
     border-radius: 8px;
     margin-bottom: 8px;
     padding: 10px 15px;
-    display: flex;
-    align-items: center;
   }
   
   .list-group-item:hover {
     background: #e9ecef;
-  }
-  
-  .btn-danger {
-    transition: background 0.2s ease-in-out;
-  }
-  
-  .btn-danger:hover {
-    background: #c82333;
   }
   </style>
   
