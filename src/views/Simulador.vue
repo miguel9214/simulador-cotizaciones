@@ -58,7 +58,9 @@ const descuentoPorVolumen = computed(() => {
 });
 
 const totalMinimo = computed(() => {
-  return totalContado.value - descuentoPorVolumen.value;
+  return seleccionados.value.length > 0 
+    ? totalContado.value - descuentoPorVolumen.value 
+    : 0;
 });
 
 const copiarResumen = () => {
