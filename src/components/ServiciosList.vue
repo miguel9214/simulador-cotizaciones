@@ -1,24 +1,13 @@
 <template>
     <div class="servicios-card shadow-lg p-4 rounded mb-4">
       <h2 class="text-center text-primary">📋 Lista de Servicios</h2>
-  
-      <!-- Input de búsqueda -->
-      <div class="input-group mb-3">
-        <input 
-          type="text" 
-          v-model="busqueda" 
-          class="form-control" 
-          placeholder="🔎 Buscar servicio..."
-        />
-        <button 
-          v-if="busqueda" 
-          class="btn btn-outline-danger" 
-          @click="limpiarBusqueda"
-        >❌</button>
-      </div>
-  
+      <input 
+        type="text" 
+        v-model="busqueda" 
+        class="form-control mb-3" 
+        placeholder="🔎 Buscar servicio..."
+      />
       <hr />
-      
       <ul class="list-group">
         <li 
           v-for="servicio in serviciosFiltrados.slice(0, 5)" 
@@ -32,14 +21,6 @@
           >➕</button>
         </li>
       </ul>
-  
-      <!-- Botón para limpiar selección y empezar de nuevo -->
-      <button 
-        class="btn btn-danger w-100 mt-3" 
-        @click="$emit('limpiar-cotizacion')"
-      >
-        🔄 Nueva Cotización
-      </button>
     </div>
   </template>
   
@@ -47,7 +28,7 @@
   import { ref, computed } from 'vue';
   
   const props = defineProps(['servicios']);
-  const emit = defineEmits(['agregar-servicio', 'limpiar-cotizacion']);
+  defineEmits(['agregar-servicio']);
   
   const busqueda = ref("");
   
@@ -60,10 +41,6 @@
       servicio.SERVICIOS_COMPLETOS.toLowerCase().includes(busqueda.value.toLowerCase())
     );
   });
-  
-  const limpiarBusqueda = () => {
-    busqueda.value = "";
-  };
   </script>
   
   <style scoped>

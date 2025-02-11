@@ -96,13 +96,12 @@ onMounted(cargarServicios);
     <div class="container mt-5 p-4 rounded shadow-lg bg-white">
         <h1 class="text-center mb-4 text-primary">Simulador de Cotizaciones</h1>
 
-        <ServiciosList :servicios="servicios" @agregar-servicio="agregarServicio"
-            @limpiar-cotizacion="seleccionados = []" />
+        <ServiciosList :servicios="servicios" @agregar-servicio="agregarServicio" />
 
         <SeleccionadosList :seleccionados="seleccionados" @actualizar-cantidad="actualizarCantidad"
             @eliminar-servicio="eliminarServicio" />
 
         <ResumenCotizacion :totalMayorista="totalMayorista" :totalContado="totalContado" :totalMinimo="totalMinimo"
-            @copiar-resumen="copiarResumen" @enviar-whatsapp="enviarWhatsApp" />
+            @copiar-resumen="copiarResumen" @enviar-whatsapp="enviarWhatsApp" @limpiar-cotizacion="seleccionados = []" />
     </div>
 </template>

@@ -14,12 +14,17 @@
           📲 WhatsApp
         </button>
       </div>
+  
+      <!-- Botón para limpiar cotización -->
+      <button class="btn btn-danger w-100 mt-3" @click="$emit('limpiar-cotizacion')">
+        🔄 Nueva Cotización
+      </button>
     </div>
   </template>
   
   <script setup>
   defineProps(['totalMayorista', 'totalContado', 'totalMinimo']);
-  defineEmits(['copiar-resumen', 'enviar-whatsapp']);
+  defineEmits(['copiar-resumen', 'enviar-whatsapp', 'limpiar-cotizacion']);
   </script>
   
   <style scoped>
