@@ -8,7 +8,12 @@
           :key="servicio.ID" 
           class="list-group-item d-flex justify-content-between align-items-center"
         >
-          <span class="fw-bold">{{ servicio.SERVICIOS_COMPLETOS }}</span>
+          <div class="text-start">
+            <span class="fw-bold">{{ servicio.SERVICIOS_COMPLETOS }}</span>
+            <div class="text-muted">
+              💰 Precio Unitario: <strong>${{ servicio.PRECIOCONTADOUNIDAD }}</strong>
+            </div>
+          </div>
   
           <div class="d-flex align-items-center">
             <input 
@@ -50,6 +55,10 @@
   
   .list-group-item:hover {
     background: #e9ecef;
+  }
+  
+  .text-muted {
+    font-size: 0.9em;
   }
   </style>
   
